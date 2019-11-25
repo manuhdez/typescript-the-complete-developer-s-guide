@@ -17,6 +17,10 @@ vehicle.getColor();
 console.log('==================');
 
 class Car extends Vehicle {
+  constructor(color: string, private wheels: number) {
+    super(color);
+  }
+
   private drive(): void {
     console.log('meeeh');
   }
@@ -26,5 +30,5 @@ class Car extends Vehicle {
   }
 }
 
-const car = new Car('black');
+const car = new Car('black', 4);
 car.startDriving();
