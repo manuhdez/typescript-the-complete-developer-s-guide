@@ -7,12 +7,17 @@
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "ts-node": "node_modules/ts-node/dist/bin.js",
-    "run:classes": "npm run ts-node src/S8_functionality_with_classes/classes.ts"
+    "parcel": "node_modules/parcel-bundler/bin/cli.js",
+    "run:classes": "yarn ts-node src/S8_functionality_with_classes/classes.ts",
+    "run:patterns": "yarn parcel src/S9_design_patterns_with_typescript/index.html"
   },
   "author": "manuhdez",
   "license": "ISC",
   "dependencies": {
-    "ts-node": "^8.5.2",
     "typescript": "^3.7.2"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "ts-node": "^8.5.2"
   }
 }
