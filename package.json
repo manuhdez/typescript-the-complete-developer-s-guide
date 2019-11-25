@@ -14,6 +14,8 @@
   "author": "manuhdez",
   "license": "ISC",
   "dependencies": {
+    "@types/faker": "^4.1.7",
+    "faker": "^4.1.0",
     "typescript": "^3.7.2"
   },
   "devDependencies": {
