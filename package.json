@@ -5,11 +5,14 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ts-node": "node_modules/ts-node/dist/bin.js",
+    "run:classes": "npm run ts-node src/S8_functionality_with_classes/classes.ts"
   },
   "author": "manuhdez",
   "license": "ISC",
   "dependencies": {
+    "ts-node": "^8.5.2",
     "typescript": "^3.7.2"
   }
 }
