@@ -8,4 +8,5 @@ const testCompany = new Company();
 console.log({ testUser, testCompany });
 
 const mapContainer = document.getElementById('map-root');
-new Map(mapContainer, testUser.location);
+const customMap = new Map(mapContainer, testUser.location);
+customMap.addMarker(testUser);
