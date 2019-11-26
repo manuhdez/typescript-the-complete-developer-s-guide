@@ -1,9 +1,10 @@
 import { Coordinates } from '../types/index';
 
-interface Mappable {
+export interface Mappable {
   name: string;
   markerContent(): string;
   location: Coordinates;
+  color: string;
 }
 
 class Map {
