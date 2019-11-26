@@ -8,5 +8,5 @@ const testCompany = new Company();
 const mapContainer = document.getElementById('map-root');
 const customMap = new Map(mapContainer, testUser.location);
 
-customMap.addMarker(testUser, 'this is the user popup');
-customMap.addMarker(testCompany, 'this is the company popup');
+customMap.addMarker(testUser);
+customMap.addMarker(testCompany);

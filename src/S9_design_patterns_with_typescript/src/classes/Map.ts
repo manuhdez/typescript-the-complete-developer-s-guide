@@ -1,8 +1,9 @@
 import { Coordinates } from '../types/index';
 
 interface Mappable {
-  location: Coordinates;
   name: string;
+  markerContent(): string;
+  location: Coordinates;
 }
 
 class Map {
@@ -16,15 +17,16 @@ class Map {
     });
   }
 
-  public addMarker = (mappable: Mappable, content: string): void => {
+  public addMarker = (mappable: Mappable): void => {
     const marker = new google.maps.Marker({
       map: this.googleMap,
-      position: mappable.location,
-      label: mappable.name
+      position: mappable.location
     });
 
     marker.addListener('click', () => {
-      const info = new google.maps.InfoWindow({ content });
+      const info = new google.maps.InfoWindow({
+        content: mappable.markerContent()
+      });
       info.open(this.googleMap, marker);
     });
   };
