@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build:s10": "cd src/S10_more_on_design_patterns && tsc && cd -",
     "test": "echo \"Error: no test specified\" && exit 1",
     "ts-node": "node_modules/ts-node/dist/bin.js",
     "parcel": "node_modules/parcel-bundler/bin/cli.js",
-    "run:classes": "yarn ts-node src/S8_functionality_with_classes/classes.ts",
-    "run:patterns": "yarn parcel src/S9_design_patterns_with_typescript/index.html"
+    "run:s8": "yarn ts-node src/S8_functionality_with_classes/classes.ts",
+    "run:s9": "yarn parcel src/S9_design_patterns_with_typescript/index.html",
+    "run:s10": "yarn ts-node src/S10_more_on_design_patterns/src/index.ts"
   },
   "author": "manuhdez",
   "license": "ISC",
