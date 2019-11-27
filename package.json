@@ -12,7 +12,8 @@
     "run:s9": "yarn parcel src/S9_design_patterns_with_typescript/index.html",
     "s10:watch": "cd src/S10_more_on_design_patterns && tsc -w && cd -",
     "s10:build": "cd src/S10_more_on_design_patterns && tsc && cd -",
-    "s10:start": "yarn nodemon src/S10_more_on_design_patterns/lib/index.js"
+    "s10:start": "yarn nodemon src/S10_more_on_design_patterns/lib/index.js",
+    "s10:run": "yarn ts-node src/S10_more_on_design_patterns/src/index.ts"
   },
   "author": "manuhdez",
   "license": "ISC",
