@@ -1,5 +1,9 @@
 class NumbersCollection {
-  constructor(public data: number[]) {}
+  public data: number[];
+
+  constructor(dataInput: number[]) {
+    this.data = dataInput;
+  }
 
   get length(): number {
     return this.data.length;
