@@ -32,6 +32,10 @@ class CharactersCollection {
 
     this.data = separatedText.join('');
   };
+
+  print = () => {
+    console.log(`Sorted collection: ${this.data}`);
+  };
 }
 
 export default CharactersCollection;

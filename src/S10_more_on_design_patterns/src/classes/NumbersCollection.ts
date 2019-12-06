@@ -19,6 +19,10 @@ class NumbersCollection {
     this.data[leftIndex] = this.data[rightIndex];
     this.data[rightIndex] = leftHand;
   };
+
+  print = () => {
+    console.log(`Sorted collection: ${this.data}`);
+  };
 }
 
 export default NumbersCollection;
