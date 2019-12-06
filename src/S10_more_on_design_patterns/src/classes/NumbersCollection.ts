@@ -1,7 +1,10 @@
-class NumbersCollection {
+import Sorter from './Sorter';
+
+class NumbersCollection extends Sorter {
   public data: number[];
 
   constructor(dataInput: number[]) {
+    super();
     this.data = dataInput;
   }
 
@@ -21,7 +24,7 @@ class NumbersCollection {
   };
 
   print = () => {
-    console.log(`Sorted collection: ${this.data}`);
+    console.log(`Sorted number collection: ${this.data}`);
   };
 }
 

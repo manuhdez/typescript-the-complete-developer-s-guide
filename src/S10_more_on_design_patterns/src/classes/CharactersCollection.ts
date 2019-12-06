@@ -1,7 +1,10 @@
-class CharactersCollection {
+import Sorter from './Sorter';
+
+class CharactersCollection extends Sorter {
   public data: string;
 
   constructor(dataInput: string) {
+    super();
     this.data = dataInput;
   }
 
@@ -34,7 +37,7 @@ class CharactersCollection {
   };
 
   print = () => {
-    console.log(`Sorted collection: ${this.data}`);
+    console.log(`Sorted characters collection: ${this.data}`);
   };
 }
 

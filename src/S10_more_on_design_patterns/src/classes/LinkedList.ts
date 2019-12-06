@@ -1,3 +1,5 @@
+import Sorter from './Sorter';
+
 class Node {
   public value: number;
   public next: Node | null = null;
@@ -7,7 +9,7 @@ class Node {
   }
 }
 
-class LinkedList {
+class LinkedList extends Sorter {
   public head: Node | null = null;
 
   /**
@@ -105,7 +107,7 @@ class LinkedList {
       node = node.next;
     }
 
-    console.log(valuesList);
+    console.log(`Sorted list ${valuesList}`);
   };
 }
 
