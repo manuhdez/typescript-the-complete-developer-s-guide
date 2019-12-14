@@ -10,4 +10,9 @@ export interface OutputTarget {
 
 export default class Summary {
   constructor(public analyzer: Analyzer, public outputTarget: OutputTarget) {}
+
+  buildAndPrintReport = (matches: MatchData[]) => {
+    const output = this.analyzer.run(matches);
+    this.outputTarget.print(output);
+  };
 }
