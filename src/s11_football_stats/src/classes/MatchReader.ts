@@ -1,5 +1,5 @@
 // classes
-import CSVReader from './CSVReader';
+import CSVReader, { CSVFileReader } from './CSVReader';
 
 // types
 import { MatchResult, MatchData } from '../types/MatchTypes';
@@ -42,6 +42,10 @@ export class MatchReaderComp {
   constructor(reader: DataReader) {
     this.reader = reader;
   }
+
+  static withCSV = (filename: string): MatchReaderComp => {
+    return new MatchReaderComp(new CSVFileReader(filename));
+  };
 
   getData = (): MatchData[] => this.matches;
 
