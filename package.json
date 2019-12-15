@@ -15,7 +15,8 @@
     "s10:start": "yarn nodemon src/S10_more_on_design_patterns/lib/index.js",
     "s11:watch": "cd src/s11_football_stats && tsc -w",
     "s11:build": "cd src/s11_football_stats && tsc && cd -",
-    "s11:start": "yarn nodemon src/s11_football_stats/lib/index.js"
+    "s11:start": "yarn nodemon src/s11_football_stats/lib/index.js",
+    "s13:start": "yarn parcel src/s13_web_framework/index.html"
   },
   "author": "manuhdez",
   "license": "ISC",
