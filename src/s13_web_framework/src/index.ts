@@ -1,7 +1,9 @@
 import User from './models/User';
 
 const user = new User({ name: 'Manu', age: 28 });
-const userName = user.get('name');
+let userName;
+user.set('name', 'Rafa');
+userName = user.get('name');
 
 const body = document.querySelector('body');
 const appContainer = document.createElement('div');
