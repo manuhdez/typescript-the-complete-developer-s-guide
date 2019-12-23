@@ -1,15 +1,36 @@
-import User from './models/User';
-
-const user = new User({ name: 'Manu', age: 28 });
-let userName;
-user.set('name', 'Rafa');
-userName = user.get('name');
+import User, { UserProps } from './models/User';
 
 const body = document.querySelector('body');
 const appContainer = document.createElement('div');
-const header = document.createElement('h1');
-header.innerHTML = `Hola ${userName}`;
 
-appContainer.appendChild(header);
+const testUser = new User({ name: 'testUser' });
+testUser.save();
 
-if (body) body.appendChild(appContainer);
+// setTimeout(() => {
+//   testUser.set({ name: 'Oswald' });
+//   testUser.save();
+// }, 3000);
+
+setTimeout(() => {
+  printUSerList();
+}, 6000);
+
+/**
+ * Render the user list on screen
+ */
+function printUSerList(): void {
+  User.getUsers().then((res) => {
+    const usersListElement = document.createElement('ul');
+
+    res.data.forEach((user: UserProps) => {
+      const { name, age } = user;
+      const userItem = document.createElement('li');
+      userItem.innerHTML = `${name} tiene ${age} años`;
+
+      usersListElement.appendChild(userItem);
+    });
+
+    appContainer.appendChild(usersListElement);
+    if (body) body.appendChild(appContainer);
+  });
+}

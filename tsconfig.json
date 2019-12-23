@@ -3,7 +3,7 @@
     /* Basic Options */
     // "incremental": true,                   /* Enable incremental compilation */
     "target": "ES5",
-    "module": "ESNext",
+    "module": "CommonJS",
     // "lib": [],                             /* Specify library files to be included in the compilation. */
     "allowJs": true,
     // "checkJs": true,                       /* Report errors in .js files. */
