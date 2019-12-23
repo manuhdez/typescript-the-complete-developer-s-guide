@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import Eventing from './Eventing';
+import Sync from './Sync';
 
 export interface UserProps {
   id?: number;
@@ -9,12 +10,11 @@ export interface UserProps {
 
 export default class User {
   private data: UserProps;
-  private usersUrl: string;
   private events: Eventing = new Eventing();
+  private sync: Sync<UserProps> = new Sync('http://localhost:3000/users');
 
   constructor(data: UserProps) {
     this.data = data;
-    this.usersUrl = 'http://localhost:3000/users';
     this.events.trigger('create');
   }
 

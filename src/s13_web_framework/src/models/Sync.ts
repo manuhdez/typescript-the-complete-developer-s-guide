@@ -1,7 +1,10 @@
 import axios, { AxiosPromise } from 'axios';
-import { UserProps } from './User';
 
-export default class Sync<T> {
+interface HasID {
+  id?: number;
+}
+
+export default class Sync<T extends HasID> {
   private baseUrl: string;
 
   constructor(url: string) {
@@ -18,7 +21,7 @@ export default class Sync<T> {
   /**
    * Saves the data of a resource into the server
    */
-  public save(data: UserProps): AxiosPromise<T> {
+  public save(data: T): AxiosPromise<T> {
     const { id } = data;
 
     if (id) {
