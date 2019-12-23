@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import Eventing from './Eventing';
 
 export interface UserProps {
   id?: number;
@@ -6,26 +7,20 @@ export interface UserProps {
   age?: number;
 }
 
-type Callback = () => void;
-
 export default class User {
   private data: UserProps;
-  public events: { [key: string]: Callback[] } = {};
-  private usersUrl = 'http://localhost:3000/users';
+  private usersUrl: string;
+  private events: Eventing = new Eventing();
 
   constructor(data: UserProps) {
     this.data = data;
-
-    const createHandlers = this.events['create'] || [];
-    const createCallback = () => {
-      console.log('new user successfully created');
-    };
-    createHandlers.push(createCallback);
-    this.events['create'] = createHandlers;
-
-    this.trigger('create');
+    this.usersUrl = 'http://localhost:3000/users';
+    this.events.trigger('create');
   }
 
+  /**
+   * Gets a list of all users stored on the server
+   */
   static async getUsers() {
     const response: AxiosResponse<UserProps[]> = await axios.get(
       'http://localhost:3000/users'
@@ -34,36 +29,24 @@ export default class User {
     return response;
   }
 
+  /**
+   * Returns the value of the passed key stored in the User instance
+   */
   public get = (propName: keyof UserProps): string | number | undefined => {
     return this.data[propName];
   };
 
+  /**
+   * Updates the User data with the given values
+   */
   public set = (newData: UserProps): void => {
     this.data = {
       ...this.data,
       ...newData
     };
-    this.trigger('change');
+
+    this.events.trigger('change');
   };
-
-  public on = (eventName: string, callback: Callback): void => {
-    const handlers = this.events[eventName] || [];
-    handlers.push(callback);
-
-    this.events[eventName] = handlers;
-  };
-
-  /**
-   * Executes all callbacks inside the Callback[] of the passed event
-   * @param eventName The name of the event to trigger
-   */
-  private trigger(eventName: string): void {
-    const handlers = this.events[eventName];
-
-    if (handlers && handlers.length) {
-      handlers.forEach((handler) => handler());
-    }
-  }
 
   /**
    * Fetch the current user data by its id and updates the user info
