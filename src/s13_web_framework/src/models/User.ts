@@ -47,29 +47,4 @@ export default class User {
 
     this.events.trigger('change');
   };
-
-  /**
-   * Fetch the current user data by its id and updates the user info
-   */
-  public fetch(): void {
-    axios
-      .get(`${this.usersUrl}/${this.get('id')}`)
-      .then((response: AxiosResponse<UserProps>): void => {
-        this.set(response.data);
-        console.log('user fetched: ', response.data);
-      });
-  }
-
-  /**
-   * Saves the data of a user into the server
-   */
-  public save(): void {
-    const userId = this.get('id');
-
-    if (userId) {
-      axios.put(`${this.usersUrl}/${userId}`, this.data);
-    } else {
-      axios.post(this.usersUrl, this.data);
-    }
-  }
 }
