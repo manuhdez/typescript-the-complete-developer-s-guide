@@ -3,17 +3,18 @@ import User, { UserProps } from './models/User';
 const body = document.querySelector('body');
 const appContainer = document.createElement('div');
 
-const testUser = new User({ id: 1 });
+const testUser = User.buildUser({ id: 1 });
+
 testUser.on('change', () => {
   console.log(`user updated.`);
-  console.log(testUser);
 });
+
 testUser.fetch();
 
-// setTimeout(() => {
-// testUser.set({ name: 'Oswald' });
-//   testUser.save();
-// }, 3000);
+setTimeout(() => {
+  testUser.set({ name: 'Wally' });
+  testUser.save();
+}, 3000);
 
 setTimeout(() => {
   printUSerList();
@@ -23,7 +24,7 @@ setTimeout(() => {
  * Render the user list on screen
  */
 function printUSerList(): void {
-  User.getUsers().then((res) => {
+  User.getAllUsers().then((res) => {
     const usersListElement = document.createElement('ul');
 
     res.data.forEach((user: UserProps) => {

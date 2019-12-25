@@ -4,7 +4,7 @@ interface HasID {
   id?: number;
 }
 
-export default class Sync<T extends HasID> {
+export default class ApiSync<T extends HasID> {
   private baseUrl: string;
 
   constructor(url: string) {

@@ -1,8 +1,9 @@
-import axios, { AxiosResponse } from 'axios';
+import Axios, { AxiosPromise, AxiosResponse } from 'axios';
 
 // classes
+import Model from '../classes/Model';
+import ApiSync from './ApiSync';
 import Eventing from './Eventing';
-import Sync from './Sync';
 import Attributes from './Attributes';
 
 /**
@@ -14,63 +15,36 @@ export interface UserProps {
   age?: number;
 }
 
-export default class User {
-  private attributes: Attributes<UserProps>;
-  private events: Eventing = new Eventing();
-  private sync: Sync<UserProps> = new Sync('http://localhost:3000/users');
+const userBaseUrl = 'http://localhost:3000/users';
 
-  constructor(data: UserProps) {
-    this.attributes = new Attributes(data);
-  }
-  /**
-   * Gets a list of all users stored on the server
-   */
-  static async getUsers() {
-    const response: AxiosResponse<UserProps[]> = await axios.get(
-      'http://localhost:3000/users'
+export default class User extends Model<UserProps> {
+  static buildUser(userData: UserProps): User {
+    return new User(
+      new Attributes<UserProps>(userData),
+      new Eventing(),
+      new ApiSync<UserProps>(userBaseUrl)
     );
-
-    return response;
   }
 
-  get on() {
-    return this.events.on;
+  static getAllUsers(): AxiosPromise<UserProps[]> {
+    return Axios.get(userBaseUrl);
   }
 
-  get trigger() {
-    return this.events.trigger;
-  }
+  static removeUserById(id: number): void {
+    const userUrl = `${userBaseUrl}/${id}`;
 
-  get get() {
-    this.events.trigger('read');
-    return this.attributes.get;
-  }
-
-  set(newData: UserProps) {
-    this.attributes.set(newData);
-    this.events.trigger('change');
-  }
-
-  fetch() {
-    const id = this.attributes.get('id');
-
-    if (typeof id !== 'number') {
-      throw new Error('Cannot fetch without a valid user id');
-    }
-
-    this.sync.fetch(id).then((response: AxiosResponse<UserProps>): void => {
-      this.set(response.data);
-    });
-  }
-
-  save() {
-    this.sync
-      .save(this.attributes.getData())
-      .then((): void => {
-        this.trigger('save');
+    Axios.get(userUrl)
+      .then((response: AxiosResponse<UserProps>): void => {
+        Axios.delete(userUrl)
+          .then((response: AxiosResponse): void => {
+            console.log('User succesfuly removed.');
+          })
+          .catch(() => {
+            console.log('Error removing user');
+          });
       })
-      .catch((): void => {
-        this.trigger('error');
+      .catch(() => {
+        console.log('Cannot remove user. User not found');
       });
   }
 }
