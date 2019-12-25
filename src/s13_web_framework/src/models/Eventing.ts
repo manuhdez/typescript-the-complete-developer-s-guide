@@ -17,11 +17,11 @@ export default class Eventing {
    * Executes all callbacks inside the Callback[] of the passed event
    * @param eventName The name of the event to trigger
    */
-  public trigger(eventName: string): void {
+  public trigger = (eventName: string): void => {
     const handlers = this.events[eventName];
 
     if (handlers && handlers.length) {
       handlers.forEach((handler) => handler());
     }
-  }
+  };
 }

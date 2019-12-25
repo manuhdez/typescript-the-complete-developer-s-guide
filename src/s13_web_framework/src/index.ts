@@ -3,11 +3,15 @@ import User, { UserProps } from './models/User';
 const body = document.querySelector('body');
 const appContainer = document.createElement('div');
 
-const testUser = new User({ name: 'testUser' });
-testUser.save();
+const testUser = new User({ id: 1 });
+testUser.on('change', () => {
+  console.log(`user updated.`);
+  console.log(testUser);
+});
+testUser.fetch();
 
 // setTimeout(() => {
-//   testUser.set({ name: 'Oswald' });
+// testUser.set({ name: 'Oswald' });
 //   testUser.save();
 // }, 3000);
 

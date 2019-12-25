@@ -15,12 +15,12 @@ export interface UserProps {
 }
 
 export default class User {
-  private data: Attributes<UserProps>;
+  private attributes: Attributes<UserProps>;
   private events: Eventing = new Eventing();
   private sync: Sync<UserProps> = new Sync('http://localhost:3000/users');
 
   constructor(data: UserProps) {
-    this.data = new Attributes(data);
+    this.attributes = new Attributes(data);
   }
   /**
    * Gets a list of all users stored on the server
@@ -31,5 +31,46 @@ export default class User {
     );
 
     return response;
+  }
+
+  get on() {
+    return this.events.on;
+  }
+
+  get trigger() {
+    return this.events.trigger;
+  }
+
+  get get() {
+    this.events.trigger('read');
+    return this.attributes.get;
+  }
+
+  set(newData: UserProps) {
+    this.attributes.set(newData);
+    this.events.trigger('change');
+  }
+
+  fetch() {
+    const id = this.attributes.get('id');
+
+    if (typeof id !== 'number') {
+      throw new Error('Cannot fetch without a valid user id');
+    }
+
+    this.sync.fetch(id).then((response: AxiosResponse<UserProps>): void => {
+      this.set(response.data);
+    });
+  }
+
+  save() {
+    this.sync
+      .save(this.attributes.getData())
+      .then((): void => {
+        this.trigger('save');
+      })
+      .catch((): void => {
+        this.trigger('error');
+      });
   }
 }

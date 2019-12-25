@@ -21,7 +21,7 @@ export default class Sync<T extends HasID> {
   /**
    * Saves the data of a resource into the server
    */
-  public save(data: T): AxiosPromise<T> {
+  public save(data: T): AxiosPromise {
     const { id } = data;
 
     if (id) {

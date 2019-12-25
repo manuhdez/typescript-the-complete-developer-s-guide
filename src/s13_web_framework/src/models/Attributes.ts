@@ -8,9 +8,16 @@ export default class Attributes<T> {
   /**
    * Returns the value of the passed key stored in the User instance
    */
-  public get<K extends keyof T>(key: K): T[K] {
+  public get = <K extends keyof T>(key: K): T[K] => {
     return this.data[key];
-  }
+  };
+
+  /**
+   * Returns the complete data object
+   */
+  public getData = (): T => {
+    return this.data;
+  };
 
   /**
    * Updates the User data with the given values
@@ -20,7 +27,5 @@ export default class Attributes<T> {
       ...this.data,
       ...newData
     };
-
-    // this.events.trigger('change');
   };
 }
