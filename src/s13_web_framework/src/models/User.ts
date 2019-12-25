@@ -2,6 +2,7 @@ import Axios, { AxiosPromise, AxiosResponse } from 'axios';
 
 // classes
 import Model from '../classes/Model';
+import Collection from '../classes/Collection';
 import ApiSync from './ApiSync';
 import Eventing from './Eventing';
 import Attributes from './Attributes';
@@ -24,6 +25,10 @@ export default class User extends Model<UserProps> {
       new Eventing(),
       new ApiSync<UserProps>(userBaseUrl)
     );
+  }
+
+  static buildCollection(): Collection<User, UserProps> {
+    return new Collection<User, UserProps>(userBaseUrl, User.buildUser);
   }
 
   static getAllUsers(): AxiosPromise<UserProps[]> {

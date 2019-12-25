@@ -3,22 +3,14 @@ import User, { UserProps } from './models/User';
 const body = document.querySelector('body');
 const appContainer = document.createElement('div');
 
-const testUser = User.buildUser({ id: 1 });
+const usersCollection = User.buildCollection();
 
-testUser.on('change', () => {
-  console.log(`user updated.`);
-});
-
-testUser.fetch();
+usersCollection.fetch();
 
 setTimeout(() => {
-  testUser.set({ name: 'Wally' });
-  testUser.save();
+  // printUSerList();
+  console.log(usersCollection.models);
 }, 3000);
-
-setTimeout(() => {
-  printUSerList();
-}, 6000);
 
 /**
  * Render the user list on screen
