@@ -1,7 +1,7 @@
 import User from '../models/User';
 
 type EventsMap = {
-  [key: string]: () => void;
+  [key: string]: (event: Event) => void;
 };
 
 export default class UserForm {
@@ -17,13 +17,21 @@ export default class UserForm {
 
   eventsMap(): EventsMap {
     return {
-      'click:#submit-btn': this.onSubmit,
+      'submit:form': this.onSubmit,
       'click:#age-btn': this.onRandomizeAge
     };
   }
 
-  onSubmit = (): void => {
-    console.log('submit form!');
+  onSubmit = (event: Event): void => {
+    event.preventDefault();
+    const inputName = this.parent.querySelector('input');
+
+    if (inputName) {
+      const name = inputName.value;
+
+      this.model.set({ name });
+      this.model.save();
+    }
   };
 
   onRandomizeAge = (): void => {
@@ -38,9 +46,11 @@ export default class UserForm {
           <p>${this.model.get('name')}</p>
           <p>${this.model.get('age')}</p>
         </div>
-        <input type="text" placeholder="user input" />
-        <button id="submit-btn">Click me</button>
-        <button id="age-btn">Set random age</button>
+        <form>
+          <input type="text" name="user-name" placeholder="user input" required minlength="4" />
+          <button type="submit">Click me</button>
+          <button type="button" id="age-btn">Set random age</button>
+        </form>
       </div>
     `;
   }
