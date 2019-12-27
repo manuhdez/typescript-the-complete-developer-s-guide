@@ -1,9 +1,8 @@
 import Axios, { AxiosResponse } from 'axios';
 import Eventing from '../models/Eventing';
-import User from '../models/User';
 
 /**
- *
+ * Defines a collection of model-like objects
  */
 export default class Collection<T, P> {
   models: T[] = [];

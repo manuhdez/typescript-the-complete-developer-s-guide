@@ -52,4 +52,11 @@ export default class User extends Model<UserProps> {
         console.log('Cannot remove user. User not found');
       });
   }
+
+  public setRandomAge(): void {
+    const age = Math.round(Math.random() * 100);
+
+    this.set({ age });
+    this.save();
+  }
 }
