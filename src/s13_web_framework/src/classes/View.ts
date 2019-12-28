@@ -10,14 +10,16 @@ export default abstract class View<T extends Model<K>, K> {
   }
 
   /**
-   * Returns an object that maps events with its corresponding callback function
-   */
-  abstract eventsMap(): EventsMap;
-
-  /**
    * Returns the html string template to render inside the DOM
    */
   abstract getTemplate(): string;
+
+  /**
+   * Returns an object that maps events with its corresponding callback function
+   */
+  eventsMap(): EventsMap {
+    return {};
+  }
 
   /**
    * Adds default events to the model

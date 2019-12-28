@@ -5,7 +5,8 @@ export default class UserForm extends View<User, UserProps> {
   eventsMap(): EventsMap {
     return {
       'submit:form': this.onSubmit,
-      'click:#age-btn': this.onRandomizeAge
+      'click:#age-btn': this.onRandomizeAge,
+      'click:#save-btn': this.onSave
     };
   }
 
@@ -17,7 +18,6 @@ export default class UserForm extends View<User, UserProps> {
       const name = inputName.value;
 
       this.model.set({ name });
-      this.model.save();
     }
   };
 
@@ -25,20 +25,40 @@ export default class UserForm extends View<User, UserProps> {
     this.model.setRandomAge();
   };
 
+  onSave = (): void => {
+    this.model.save();
+  };
+
   getTemplate(): string {
     return `
-      <div>
-        <h1>User form</h1>
-        <div>
-          <p>${this.model.get('name')}</p>
-          <p>${this.model.get('age')}</p>
-        </div>
-        <form>
-          <input type="text" name="user-name" placeholder="user input" required minlength="4" />
-          <button type="submit">Click me</button>
-          <button type="button" id="age-btn">Set random age</button>
-        </form>
-      </div>
+      <form class="user-form">
+        <input type="text" name="user-name" placeholder="user input" required minlength="4" />
+        <button type="submit">Change name</button>
+        <button type="button" id="age-btn">Set random age</button>
+        <button type="button" id="save-btn">Save changes</button>
+      </form>
+      <style>
+        .user-form {
+          display: flex;
+          flex-direction: column;
+          max-width: 300px;
+        }
+        .user-form input {
+          height: 35px;
+          padding: 0 10px;
+          margin-bottom: 10px;
+          border: 1px solid rgba(0,0,0,0.5);
+          border-radius: 3px;
+        }
+        button {
+          color: white;
+          height: 35px;
+          background: lightblue;
+          border: none;
+          border-radius: 3px;
+          margin-bottom: 5px;
+        }
+      </style>
     `;
   }
 }
