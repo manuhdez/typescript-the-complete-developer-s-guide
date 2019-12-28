@@ -1,20 +1,7 @@
-import User from '../models/User';
+import User, { UserProps } from '../models/User';
+import View, { EventsMap } from '../classes/View';
 
-type EventsMap = {
-  [key: string]: (event: Event) => void;
-};
-
-export default class UserForm {
-  constructor(public parent: HTMLElement, private model: User) {
-    this.bindModelEvents();
-  }
-
-  bindModelEvents(): void {
-    this.model.on('change', () => {
-      this.render();
-    });
-  }
-
+export default class UserForm extends View<User, UserProps> {
   eventsMap(): EventsMap {
     return {
       'submit:form': this.onSubmit,
@@ -53,26 +40,5 @@ export default class UserForm {
         </form>
       </div>
     `;
-  }
-
-  bindEvents(fragment: DocumentFragment): void {
-    const events = this.eventsMap();
-
-    for (const eventKey in events) {
-      const [eventName, selector] = eventKey.split(':');
-
-      fragment.querySelectorAll(selector).forEach((element) => {
-        element.addEventListener(eventName, events[eventKey]);
-      });
-    }
-  }
-
-  render(): void {
-    this.parent.innerHTML = '';
-    const templateElement = document.createElement('template');
-    templateElement.innerHTML = this.getTemplate();
-
-    this.bindEvents(templateElement.content);
-    this.parent.append(templateElement.content);
   }
 }
