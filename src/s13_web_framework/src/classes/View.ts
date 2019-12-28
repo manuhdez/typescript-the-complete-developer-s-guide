@@ -4,8 +4,14 @@ export type EventsMap = {
   [key: string]: (event: Event) => void;
 };
 
+export type RegionsMap = {
+  [key: string]: string;
+};
+
 export default abstract class View<T extends Model<K>, K> {
-  constructor(public parent: HTMLElement, protected model: T) {
+  regions: { [key: string]: Element } = {};
+
+  constructor(public parent: Element, protected model: T) {
     this.bindModelEvents();
   }
 
@@ -18,6 +24,13 @@ export default abstract class View<T extends Model<K>, K> {
    * Returns an object that maps events with its corresponding callback function
    */
   eventsMap(): EventsMap {
+    return {};
+  }
+
+  /**
+   * Returns an object that maps a ViewClass with a DOM selector to render its content
+   */
+  regionsMap(): RegionsMap {
     return {};
   }
 
@@ -46,6 +59,21 @@ export default abstract class View<T extends Model<K>, K> {
     }
   }
 
+  mapRegions(fragment: DocumentFragment): void {
+    const regionsList = this.regionsMap();
+
+    for (const key in regionsList) {
+      const selector = regionsList[key];
+      const element = fragment.querySelector(selector);
+
+      if (element) {
+        this.regions[key] = element;
+      }
+    }
+  }
+
+  preRender(): void {}
+
   /**
    * Renders the <template> elemtent into the DOM
    */
@@ -54,7 +82,11 @@ export default abstract class View<T extends Model<K>, K> {
     const templateElement = document.createElement('template');
     templateElement.innerHTML = this.getTemplate();
 
+    // bind events and regions with its elements
     this.bindEvents(templateElement.content);
+    this.mapRegions(templateElement.content);
+
+    this.preRender();
     this.parent.append(templateElement.content);
   }
 }

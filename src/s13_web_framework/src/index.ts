@@ -1,4 +1,4 @@
-import UserForm from './views/UserForm';
+import UserEdit from './views/UserEdit';
 import User from './models/User';
 
 const appRoot = document.getElementById('root');
@@ -7,7 +7,7 @@ user.fetch();
 
 setTimeout(() => {
   if (appRoot) {
-    const userForm = new UserForm(appRoot, user);
-    userForm.render();
+    const userEdit = new UserEdit(appRoot, user);
+    userEdit.render();
   }
 }, 2000);
