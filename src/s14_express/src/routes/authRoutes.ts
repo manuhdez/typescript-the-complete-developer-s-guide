@@ -1,6 +1,10 @@
-import { Router, Request, Response, response } from 'express';
+import { Router, Request, Response } from 'express';
 
 export const authRouter = Router();
+
+interface RequestWithBody extends Request {
+  body: { [key: string]: string | undefined };
+}
 
 authRouter.get('/', (req: Request, res: Response) => {
   res.status(200).send(`
@@ -27,8 +31,12 @@ authRouter.get('/login', (req: Request, res: Response) => {
   `);
 });
 
-authRouter.post('/login', (req: Request, res: Response) => {
+authRouter.post('/login', (req: RequestWithBody, res: Response) => {
   const { email, password } = req.body;
 
-  res.status(200).send(email + password);
+  if (email && password) {
+    res.status(200).send(email + password);
+  } else {
+    res.status(301).send('missed parameter email or password');
+  }
 });
