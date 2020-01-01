@@ -18,7 +18,9 @@
     "s11:build": "cd src/s11_football_stats && tsc && cd -",
     "s11:start": "yarn nodemon src/s11_football_stats/lib/index.js",
     "s13:start": "yarn parcel src/s13_web_framework/index.html",
-    "s13:serve": "yarn json-server src/s13_web_framework/db.json"
+    "s13:serve": "yarn json-server src/s13_web_framework/db.json",
+    "s14:build": "cd src/s14_express && tsc -w && cd -",
+    "s14:run": "yarn nodemon src/s14_express/build/index.js"
   },
   "author": "manuhdez",
   "license": "ISC",
