@@ -57,6 +57,5 @@ export default class User extends Model<UserProps> {
     const age = Math.round(Math.random() * 100);
 
     this.set({ age });
-    this.save();
   }
 }

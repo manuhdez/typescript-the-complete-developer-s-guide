@@ -1,13 +1,14 @@
-import UserEdit from './views/UserEdit';
 import User from './models/User';
+import UsersList from './views/UsersList';
 
 const appRoot = document.getElementById('root');
-const user = User.buildUser({ id: 3 });
-user.fetch();
 
-setTimeout(() => {
-  if (appRoot) {
-    const userEdit = new UserEdit(appRoot, user);
-    userEdit.render();
-  }
-}, 2000);
+if (appRoot) {
+  const usersCollection = User.buildCollection();
+  usersCollection.fetch();
+
+  setTimeout(() => {
+    const listOfUsers = new UsersList(appRoot, usersCollection);
+    listOfUsers.render();
+  }, 2000);
+}

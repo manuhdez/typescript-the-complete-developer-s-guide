@@ -21,9 +21,14 @@ export default class UserEdit extends View<User, UserProps> {
   getTemplate(): string {
     return `
       <div>
-      <div class="user-info"></div>
-      <div class="user-form"></div>
+        <div class="user-info"></div>
+        <div class="user-form"></div>
       </div>
+      <style>
+        html, * {
+          font-family: sans-serif;
+        }
+      </style>
     `;
   }
 }
