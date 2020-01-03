@@ -17,7 +17,8 @@ authRouter.get('/', (req: RequestWithBody, res: Response) => {
   } else {
     res.status(200).send(`
       <div>
-        <h1>welcome User</h1>
+        <h1>You are not logged in</h1>
+        <a href="/login">Login</a>
       </div>
     `);
   }
@@ -52,4 +53,12 @@ authRouter.post('/login', (req: RequestWithBody, res: Response) => {
       <a href="/login">Try again</a>
     `);
   }
+});
+
+authRouter.get('/logout', (req: RequestWithBody, res: Response) => {
+  if (req.session) {
+    req.session = undefined;
+  }
+
+  res.status(301).redirect('/');
 });
