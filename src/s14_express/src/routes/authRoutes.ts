@@ -1,9 +1,22 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 
 export const authRouter = Router();
 
 interface RequestWithBody extends Request {
   body: { [key: string]: string | undefined };
+}
+
+export function authMiddleware(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  if (req.session && req.session.authenticated) {
+    next();
+    return;
+  }
+
+  res.status(403).send('<h1>Not permitted</h1>');
 }
 
 authRouter.get('/', (req: RequestWithBody, res: Response) => {
@@ -62,3 +75,11 @@ authRouter.get('/logout', (req: RequestWithBody, res: Response) => {
 
   res.status(301).redirect('/');
 });
+
+authRouter.get(
+  '/protected',
+  authMiddleware,
+  (req: RequestWithBody, res: Response) => {
+    res.status(200).send('Welcome to protected route user!');
+  }
+);
