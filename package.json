@@ -39,6 +39,7 @@
     "typescript": "^3.7.2"
   },
   "devDependencies": {
+    "@types/cookie-session": "^2.0.37",
     "concurrently": "^5.0.0",
     "nodemon": "^2.0.1",
     "parcel-bundler": "^1.12.4",

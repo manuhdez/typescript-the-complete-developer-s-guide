@@ -6,12 +6,21 @@ interface RequestWithBody extends Request {
   body: { [key: string]: string | undefined };
 }
 
-authRouter.get('/', (req: Request, res: Response) => {
-  res.status(200).send(`
-    <div>
-      <h1>hello world</h1>
-    </div>
-  `);
+authRouter.get('/', (req: RequestWithBody, res: Response) => {
+  if (req.session && req.session.authenticated) {
+    res.status(200).send(`
+      <div>
+        <p>You are logged in</p>
+        <a href="/logout">Logout</a>
+      </div>
+    `);
+  } else {
+    res.status(200).send(`
+      <div>
+        <h1>welcome User</h1>
+      </div>
+    `);
+  }
 });
 
 authRouter.get('/login', (req: Request, res: Response) => {
@@ -34,9 +43,13 @@ authRouter.get('/login', (req: Request, res: Response) => {
 authRouter.post('/login', (req: RequestWithBody, res: Response) => {
   const { email, password } = req.body;
 
-  if (email && password) {
-    res.status(200).send(email + password);
+  if (email && password && email === 'user@mail.com' && password === 'secret') {
+    req.session = { authenticated: true };
+    res.redirect('/');
   } else {
-    res.status(301).send('missed parameter email or password');
+    res.status(301).send(`
+      <p>invalid email or password</p>
+      <a href="/login">Try again</a>
+    `);
   }
 });
