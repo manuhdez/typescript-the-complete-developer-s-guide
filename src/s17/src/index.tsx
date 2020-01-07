@@ -9,8 +9,8 @@ interface AppState {
   counter: number;
 }
 
-class App extends React.Component<AppProps, AppState> {
-  state = {
+class App extends React.Component<AppProps> {
+  state: AppState = {
     counter: 0
   };
 
