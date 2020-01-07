@@ -1,6 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const App = () => <h1>hello react</h1>;
+interface AppProps {
+  name?: string;
+}
+
+class App extends React.Component<AppProps> {
+  render() {
+    return <h3>hello {this.props.name || 'invited'}</h3>;
+  }
+}
 
 ReactDOM.render(<App />, document.getElementById('root'));
