@@ -5,9 +5,32 @@ interface AppProps {
   name?: string;
 }
 
-class App extends React.Component<AppProps> {
+interface AppState {
+  counter: number;
+}
+
+class App extends React.Component<AppProps, AppState> {
+  state = {
+    counter: 0
+  };
+
+  onIncrement = () => {
+    this.setState({ counter: this.state.counter + 1 });
+  };
+
+  onDecrement = () => {
+    this.setState({ counter: this.state.counter - 1 });
+  };
+
   render() {
-    return <h3>hello {this.props.name || 'invited'}</h3>;
+    return (
+      <div>
+        <h3>hello {this.props.name || 'invited'}</h3>
+        <p>count: {this.state.counter}</p>
+        <button onClick={this.onIncrement}>increment</button>
+        <button onClick={this.onDecrement}>decrement</button>
+      </div>
+    );
   }
 }
 
