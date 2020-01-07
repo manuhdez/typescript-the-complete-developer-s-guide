@@ -20,7 +20,8 @@
     "s13:start": "yarn parcel src/s13_web_framework/index.html",
     "s13:serve": "yarn json-server src/s13_web_framework/db.json",
     "s14:build": "cd src/s14_express && tsc -w && cd -",
-    "s14:run": "yarn nodemon src/s14_express/lib/index.js"
+    "s14:run": "yarn nodemon src/s14_express/lib/index.js",
+    "s17:start": "yarn parcel src/s17/src/index.html"
   },
   "author": "manuhdez",
   "license": "ISC",
@@ -30,12 +31,16 @@
     "@types/googlemaps": "^3.38.0",
     "@types/json-server": "^0.14.2",
     "@types/node": "^12.12.14",
+    "@types/react": "^16.9.17",
+    "@types/react-dom": "^16.9.4",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "cookie-session": "^1.3.3",
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "json-server": "^0.15.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "typescript": "^3.7.2"
   },
   "devDependencies": {
