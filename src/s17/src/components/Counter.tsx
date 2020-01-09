@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch } from 'react';
+import { connect } from 'react-redux';
 
-interface CounterProps {
-  initialValue?: number;
+// actions
+import { incrementCount, decrementCount } from '../store/counter/actions';
+
+interface CounterProps extends CounterState, CounterActions {}
+
+interface CounterState {
+  count: number;
 }
 
-type CounterState = number;
+interface CounterActions {
+  increment: () => void;
+  decrement: () => void;
+}
 
-export default function Counter({ initialValue }: CounterProps): JSX.Element {
-  const [count, setCount] = useState<CounterState>(initialValue || 0);
-
+function Counter({ count, increment, decrement }: CounterProps): JSX.Element {
   const onIncrement = () => {
-    setCount(count + 1);
+    increment();
   };
 
   const onDecrement = () => {
-    setCount(count - 1);
+    decrement();
   };
 
   return (
@@ -25,3 +32,20 @@ export default function Counter({ initialValue }: CounterProps): JSX.Element {
     </div>
   );
 }
+
+interface StoreState {
+  counter: {
+    count: number;
+  };
+}
+
+const mapStateToProps = (state: StoreState): CounterState => ({
+  count: state.counter.count
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<any>): CounterActions => ({
+  increment: () => dispatch(incrementCount()),
+  decrement: () => dispatch(decrementCount())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
