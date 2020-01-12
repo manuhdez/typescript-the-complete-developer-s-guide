@@ -1,5 +1,4 @@
-export enum ActionTypes {
-  FETCH_TODOS = 'FETCH_TODOS',
+export enum CounterActionTypes {
   INCREMENT_COUNT = 'INCREMENT_COUNT',
   DECREMENT_COUNT = 'DECREMENT_COUNT'
 }

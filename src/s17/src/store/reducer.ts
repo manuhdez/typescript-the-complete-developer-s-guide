@@ -2,10 +2,17 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunk from 'redux-thunk';
 
 // reducers
-import counterReducer from './counter/reducer';
+import counterReducer, { CounterReducerState } from './counter/reducer';
+import todosReducer, { TodosReducerState } from './todos/reducer';
 
-const reducers = combineReducers({
-  counter: counterReducer
+interface StoreState {
+  counter: CounterReducerState;
+  todos: TodosReducerState;
+}
+
+const reducers = combineReducers<StoreState>({
+  counter: counterReducer,
+  todos: todosReducer
 });
 
 const composeEnhancers =

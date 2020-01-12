@@ -1,43 +1,33 @@
-import { ActionTypes } from './types';
-import { Todo } from './actions';
+import { CounterActionTypes } from './types';
 
-export interface ReducerState {
+export interface CounterReducerState {
   count: number;
-  todos: Todo[];
-  loading: boolean;
-  error: boolean;
 }
 
 export interface ReducerAction {
-  type: string;
-  payload?: any;
+  type: CounterActionTypes;
 }
 
-const initialState: ReducerState = {
-  count: 2,
-  todos: [],
-  loading: false,
-  error: false
+const initialState: CounterReducerState = {
+  count: 0
 };
 
-const reducer = (state: ReducerState = initialState, action: ReducerAction) => {
-  const { type, payload } = action;
+const reducer = (
+  state: CounterReducerState = initialState,
+  action: ReducerAction
+) => {
+  const { type } = action;
 
   switch (type) {
-    case ActionTypes.INCREMENT_COUNT:
+    case CounterActionTypes.INCREMENT_COUNT:
       return {
         ...state,
         count: state.count + 1
       };
-    case ActionTypes.DECREMENT_COUNT:
+    case CounterActionTypes.DECREMENT_COUNT:
       return {
         ...state,
         count: state.count - 1
-      };
-    case ActionTypes.FETCH_TODOS:
-      return {
-        ...state,
-        todos: payload
       };
     default:
       return {
