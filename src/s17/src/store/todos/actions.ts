@@ -10,6 +10,8 @@ export interface Todo {
   completed: boolean;
 }
 
+// FETCH TODOS
+
 interface FetchTodosAction {
   type: TodosActionTypes.FETCH_TODOS;
   payload: Todo[];
@@ -25,3 +27,15 @@ export const fetchTodos = () => {
     });
   };
 };
+
+// DELETE TODO
+
+interface DeleteTodoAction {
+  type: TodosActionTypes.DELETE_TODO_BY_ID;
+  payload: number;
+}
+
+export const deleteTodoItem = (id: number): DeleteTodoAction => ({
+  type: TodosActionTypes.DELETE_TODO_BY_ID,
+  payload: id
+});
