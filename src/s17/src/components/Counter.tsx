@@ -28,10 +28,10 @@ function Counter({ count, increment, decrement }: CounterProps): JSX.Element {
   };
 
   return (
-    <div>
+    <div style={{ marginBottom: 50 }}>
       <p>count: {count}</p>
-      <button onClick={onIncrement}>increment</button>
       <button onClick={onDecrement}>decrement</button>
+      <button onClick={onIncrement}>increment</button>
     </div>
   );
 }
