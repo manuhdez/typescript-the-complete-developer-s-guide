@@ -3,6 +3,7 @@ import { Todo } from './actions';
 
 export interface TodosReducerState {
   todos: Todo[];
+  loading: boolean;
 }
 
 export interface ReducerAction {
@@ -11,7 +12,8 @@ export interface ReducerAction {
 }
 
 const initialState: TodosReducerState = {
-  todos: []
+  todos: [],
+  loading: false
 };
 
 const reducer = (
@@ -24,7 +26,13 @@ const reducer = (
     case TodosActionTypes.FETCH_TODOS:
       return {
         ...state,
-        todos: payload
+        todos: payload,
+        loading: false
+      };
+    case TodosActionTypes.FETCH_TODOS_START:
+      return {
+        ...state,
+        loading: true
       };
     case TodosActionTypes.DELETE_TODO_BY_ID:
       return {

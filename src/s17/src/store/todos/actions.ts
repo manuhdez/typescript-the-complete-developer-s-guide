@@ -17,8 +17,16 @@ interface FetchTodosAction {
   payload: Todo[];
 }
 
+interface FetchTodosStartAction {
+  type: TodosActionTypes.FETCH_TODOS_START;
+}
+
 export const fetchTodos = () => {
   return async (dispatch: Dispatch) => {
+    dispatch<FetchTodosStartAction>({
+      type: TodosActionTypes.FETCH_TODOS_START
+    });
+
     const response = await axios.get<Todo[]>(`${baseUrl}/todos`);
 
     dispatch<FetchTodosAction>({

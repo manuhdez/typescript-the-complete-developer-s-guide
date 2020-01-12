@@ -1,4 +1,5 @@
 export enum TodosActionTypes {
   FETCH_TODOS = 'FETCH_TODOS',
+  FETCH_TODOS_START = 'FETCH_TODOS_START',
   DELETE_TODO_BY_ID = 'DELETE_TODO_BY_ID'
 }

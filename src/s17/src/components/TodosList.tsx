@@ -8,13 +8,16 @@ interface TodosListProps extends StateToProps, DispatchToProps {}
 
 interface StateToProps {
   todos: Todo[];
+  loading: boolean;
 }
 
 interface DispatchToProps {
   removeTodo(id: number): Action<any>;
 }
 
-const TodosList = ({ todos, removeTodo }: TodosListProps) => {
+const TodosList = ({ todos, loading, removeTodo }: TodosListProps) => {
+  if (loading) return <h3>Loading todos...</h3>;
+
   return (
     <div>
       <h3>List of todos</h3>
@@ -38,7 +41,8 @@ const TodosList = ({ todos, removeTodo }: TodosListProps) => {
 };
 
 const mapStateToProps = ({ todos }: StoreState): StateToProps => ({
-  todos: todos.todos
+  todos: todos.todos,
+  loading: todos.loading
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToProps => ({
