@@ -2,7 +2,8 @@ import React from 'react';
 import { Dispatch, Action } from 'redux';
 import { connect } from 'react-redux';
 
-// actions
+// redux
+import { StoreState } from '../store/reducer';
 import { CounterActionTypes } from '../store/counter/types';
 import { incrementCount, decrementCount } from '../store/counter/actions';
 
@@ -35,14 +36,8 @@ function Counter({ count, increment, decrement }: CounterProps): JSX.Element {
   );
 }
 
-interface StoreState {
-  counter: {
-    count: number;
-  };
-}
-
-const mapStateToProps = (state: StoreState): CounterState => ({
-  count: state.counter.count
+const mapStateToProps = ({ counter }: StoreState): CounterState => ({
+  count: counter.count
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): CounterActions => ({
