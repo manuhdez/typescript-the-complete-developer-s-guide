@@ -7,7 +7,8 @@ export function controller(baseRoute: string) {
 
     for (let key in target.prototype) {
       const routeHandler = target.prototype[key];
-      const path = Reflect.getMetadata('path', target.prototype, key);
+      const path: string = Reflect.getMetadata('path', target.prototype, key);
+      const method: string = Reflect.getMetadata('path', target.prototype, key);
 
       if (path) {
         router.get(`${baseRoute}${path}`, routeHandler);
