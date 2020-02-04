@@ -19,9 +19,12 @@ export function controller(baseRoute: string) {
         target.prototype,
         key
       );
+      const middlewares =
+        Reflect.getMetadata(MetadataKeys.middleware, target.prototype, key) ||
+        [];
 
       if (path) {
-        router[method](`${baseRoute}${path}`, routeHandler);
+        router[method](`${baseRoute}${path}`, ...middlewares, routeHandler);
       }
     }
   };
