@@ -2,10 +2,10 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cookieSession from 'cookie-session';
 
-// controlers
-import './controllers';
 // router
 import { AppRouter } from './AppRouter';
+// controlers
+import './controllers';
 
 const app = express();
 
